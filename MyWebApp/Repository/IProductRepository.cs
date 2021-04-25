@@ -10,6 +10,7 @@ namespace MyWebApp.Repository
     public interface IProductRepository
     {
         List<Products> GetAllProducts();
+        List<Products> Paging(int? pageNumber);
         Products GetProductById(Guid Id);
         void AddProduct(Products model);
         void EditProduct(Products model);

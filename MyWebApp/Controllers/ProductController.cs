@@ -42,7 +42,7 @@ namespace MyWebApp.Controllers
             else
             {
                 var result = _repository.GetAllProducts().Where(i => i.Name.Contains(Search) || i.Category == Search).ToList();
-                if (result.Count<=0)
+                if (result.Count <= 0)
                 {
                     return View("AllProduct");
                 }
@@ -54,8 +54,7 @@ namespace MyWebApp.Controllers
         }
         public IActionResult AllProduct()
         {
-            var products = _repository.GetAllProducts();
-            return View(products);
+            return RedirectToAction("Index", "Home");
         }
         [Authorize]
         [HttpPost]

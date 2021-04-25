@@ -7,22 +7,41 @@ using System.Threading.Tasks;
 
 namespace MyWebApp.Controllers
 {
-    public class HomeController:Controller
+    public class HomeController : Controller
     {
         private readonly IProductRepository _repository;
         public HomeController(IProductRepository repository)
         {
             _repository = repository;
         }
-        public IActionResult Index()
+        public IActionResult Index(int? pageNumber, int? previous, int? next)
         {
-            var model=_repository.GetAllProducts();
+            var model = Paging(pageNumber, previous, next);
             return View(model);
         }
-        public IActionResult Test()
+        [NonAction]
+        public List<Dto.Products> Paging(int? pageNumber, int? previous, int? next)
         {
-            return View();
+            if (!pageNumber.HasValue && !previous.HasValue && !next.HasValue)
+            {
+                return _repository.GetAllProducts();
+            }
+            else
+            {
+                if (next.HasValue)
+                {
+                    pageNumber += 1;
+                }
+                else if (previous.HasValue)
+                {
+                    if (pageNumber > 1)
+                    {
+                        pageNumber -= 1;
+                    }
+                }
+                ViewData["pageNumber"] = pageNumber;
+                return _repository.Paging(pageNumber);
+            }
         }
-       
     }
 }

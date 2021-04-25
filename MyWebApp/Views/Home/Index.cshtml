@@ -23,6 +23,12 @@
 <br>
 <br>
 <br>
+@if (Model == null)
+{
+    <div class="alert alert-warning" role="alert">
+        کالایی یافت نشد
+    </div>
+}
 @if (User.Identity.IsAuthenticated)
 {
 
@@ -58,7 +64,6 @@
 else
 {
     <div class="container card-deck ms-5">
-
         <div class="row">
 
             @{ foreach (var p in Model)
@@ -80,6 +85,75 @@ else
 
                 }
             }
+            <nav aria-label="Page navigation example">
+                <ul class="pagination  justify-content-center pt-5" style="direction:ltr">
+
+                    @{if (ViewData["pageNumber"] == null)
+                            ViewData["pageNumber"] = 1;}
+
+                    @{ var pageNumber = ViewData["pageNumber"];
+                        var number = int.Parse(pageNumber.ToString());
+
+
+                        if (number == 1)
+                        {
+                            <li class="page-item disabled"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-previous="1" asp-route-pageNumber=@ViewData["pageNumber"]>صفحه قبل</a></li>
+                            <li class="page-item active"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-pageNumber="1">1</a></li>
+                            <li class="page-item"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-pageNumber="2">2</a></li>
+                            <li class="page-item"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-pageNumber="3">3</a></li>
+                            <li class="page-item"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-pageNumber="4">4</a></li>
+                            <li class="page-item"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-next="1" asp-route-pageNumber=@ViewData["pageNumber"]>صفحه بعد</a></li>
+
+                        }
+                        else if (number == 2)
+                        {
+                            <li class="page-item"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-previous="1" asp-route-pageNumber=@ViewData["pageNumber"]>صفحه قبل</a></li>
+                            <li class="page-item"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-pageNumber="1">1</a></li>
+                            <li class="page-item active"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-pageNumber="2">2</a></li>
+                            <li class="page-item"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-pageNumber="3">3</a></li>
+                            <li class="page-item"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-pageNumber="4">4</a></li>
+                            <li class="page-item"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-next="1" asp-route-pageNumber=@ViewData["pageNumber"]>صفحه بعد</a></li>
+
+                        }
+                        else if (number == 3)
+                        {
+                            <li class="page-item"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-previous="1" asp-route-pageNumber=@ViewData["pageNumber"]>صفحه قبل</a></li>
+                            <li class="page-item"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-pageNumber="1">1</a></li>
+                            <li class="page-item"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-pageNumber="2">2</a></li>
+                            <li class="page-item active"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-pageNumber="3">3</a></li>
+                            <li class="page-item"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-pageNumber="4">4</a></li>
+                            <li class="page-item"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-next="1" asp-route-pageNumber=@ViewData["pageNumber"]>صفحه بعد</a></li>
+
+                        }
+                        else if (number == 4)
+                        {
+                            <li class="page-item"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-previous="1" asp-route-pageNumber=@ViewData["pageNumber"]>صفحه قبل</a></li>
+                            <li class="page-item"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-pageNumber="1">1</a></li>
+                            <li class="page-item"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-pageNumber="2">2</a></li>
+                            <li class="page-item"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-pageNumber="3">3</a></li>
+                            <li class="page-item active"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-pageNumber="4">4</a></li>
+                            <li class="page-item disabled"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-next="1" asp-route-pageNumber=@ViewData["pageNumber"]>صفحه بعد</a></li>
+
+                        }
+                        else if (number > 4)
+                        {
+                            <li class="alert alert-warning" role="alert">
+                                کالایی یافت نشد
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="page-item"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-previous="1" asp-route-pageNumber=@ViewData["pageNumber"]>صفحه قبل</a></li>
+                            <li class="page-item"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-pageNumber="1">1</a></li>
+                            <li class="page-item"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-pageNumber="2">2</a></li>
+                            <li class="page-item"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-pageNumber="3">3</a></li>
+                            <li class="page-item"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-pageNumber="4">4</a></li>
+                            <li class="page-item"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-next="1" asp-route-pageNumber=@ViewData["pageNumber"]>صفحه بعد</a></li>
+
+                        }}
+                </ul>
+            </nav>
+
         </div>
     </div>
 }
