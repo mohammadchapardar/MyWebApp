@@ -1,0 +1,56 @@
+﻿@model Products
+@{
+    ViewData["Title"] = "جزئیات محصول";
+}
+@if (Model == null)
+{
+    <div class="alert alert-warning">صفحه ی مرود نظر یافت نشد</div>
+}
+@{else
+
+    if (User.Identity.IsAuthenticated)
+    {
+
+        <div class="card col-sm-6 col-md-4 col-lg-3 text-center text-white bg-info mt-3 mb-3 pt-3">
+
+            <!--<img class="card-img-top" src="~/Image/card1.jpg" alt="Card image cap">-->
+            <div class="card-body">
+                <h5 class="card-title ">@Model.Name</h5>
+                <br>
+                <p class="card-text text-end">@Model.Description</p>
+                <h3 class="card-header">@Model.Price</h3>
+
+                <button type="button" class="btn btn-danger btn-lg mt-3">افزودن به سبد خرید</button>
+            </div>
+            <div class="card-footer">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <a asp-controller="Product" asp-action="AddOrEdit" asp-route-id="@(Model.Id)" type="button" class="btn btn-dark btn-sm m-1">ویرایش محصول</a>
+                    <a asp-controller="Product" asp-action="Delete" asp-route-id="@(Model.Id)" type="button" class="btn btn-danger btn-sm m-1">حذف مصول</a>
+                </div>
+            </div>
+            <div class="card-footer">
+                <small class="text-white">@Model.Category</small>
+            </div>
+        </div>
+        <a asp-action="Index" asp-controller="Home" class="btn btn-dark me-3">بازگشت</a>
+    }
+    else
+    {
+        <div class="card col-sm-6 col-md-4 col-lg-3 text-center text-white bg-info mt-3 mb-3 pt-3">
+
+            <!--<img class="card-img-top" src="~/Image/card1.jpg" alt="Card image cap">-->
+            <div class="card-body">
+                <h5 class="card-title ">@Model.Name</h5>
+                <br>
+                <p class="card-text text-end">@Model.Description</p>
+                <h3 class="card-header">@Model.Price</h3>
+
+                <button type="button" class="btn btn-danger btn-lg mt-3">افزودن به سبد خرید</button>
+            </div>
+            <div class="card-footer">
+                <small class="text-white">@Model.Category</small>
+            </div>
+        </div>
+        <a asp-action="Index" asp-controller="Home" class="btn btn-dark me-3">بازگشت</a>
+    }
+}

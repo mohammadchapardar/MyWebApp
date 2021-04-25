@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html dir="rtl" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/bootstrap-5.0.0/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/StyleSheet.css" rel="stylesheet" />
+    <title>@(ViewData["Title"])</title>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-light bg-dark p-5" id="theader">
+        <div class="container">
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                <img src="~/Image/nav.logo.png" alt="" width="30" height="24">
+                <span class="text-light h4" id="text-header-top">فروشگاه اینترنتی انلاین شاپ</span>
+            </a>
+        </div>
+    </nav>
+
+    <nav class="navbar navbar-dark navbar-expand-lg sticky-top bg-danger">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">انلاین شاپ</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+
+            <div class="collapse navbar-collapse order-last">
+                <ul class="navbar-nav me-1 mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" asp-controller="Home" asp-action="Index">صفحه ی اصلی</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Product" asp-action="AllProduct">محصولات</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            دسته بندی محصولات
+                        </a>
+                        <ul class="dropdown-menu text-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" asp-action="Search" asp-controller="Product" asp-route-Search="کالای دیجیتال">کالای دیجیتال</a></li>
+                            <li><a class="dropdown-item" asp-action="Search" asp-controller="Product" asp-route-Search="مد و پوشاک">مد و پوشاک</a></li>
+                            <li><a class="dropdown-item" asp-action="Search" asp-controller="Product" asp-route-Search="زیبایی و سلامت">زیبایی و سلامت</a></li>
+                            <li><a class="dropdown-item" asp-action="Search" asp-controller="Product" asp-route-Search="خانه و آشپزخانه">خانه و آشپزخانه</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" asp-action="Search" asp-controller="Product" asp-route-Search="خوردنی و اشامیدنی">خوردنی و اشامیدنی</a></li>
+                        </ul>
+                    </li>
+
+                    @if (Context.User?.Identity?.IsAuthenticated ?? false)
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
+
+                                @(Context.User.Identity.Name)
+                            </a>
+                            <ul class="dropdown-menu text-end" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" asp-action="Logout" asp-controller="Auth" asp-route-redirectUrl="/">خروج</a></li>
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                حساب کاربری
+                            </a>
+                            <ul class="dropdown-menu text-end" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" asp-action="Signin" asp-controller="Auth" asp-route-redirectUrl="/">ورود</a></li>
+                            </ul>
+                        </li>
+                    }
+
+                </ul>
+                <form class="d-flex me-auto">
+                    <input class="form-control ms-2 me-2 btn-outline-light" id="Search" name="Search" type="search" placeholder="جستجو در محصولات" aria-label="Search">
+                    <button class="btn btn-outline-light" asp-controller="Product" asp-action="Search" type="submit">جستجو</button>
+                </form>
+            </div>
+
+
+        </div>
+    </nav>
+
+
+    @RenderBody()
+
+
+    <br>
+    <br>
+    <footer class="bg-primary text-white text-end">
+
+        <div class="container p-4">
+
+            <div class="row">
+
+                <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">در باره ی ما</h5>
+
+                    <p>
+                        انلاین شاپ به عنوان یکی از قدیمی‌ترین فروشگاه های اینترنتی با بیش از یک دهه تجربه، با پایبندی به سه اصل، پرداخت در محل، 7 روز ضمانت بازگشت کالا و تضمین اصل‌بودن کالا موفق شده تا همگام با فروشگاه‌های معتبر جهان، به بزرگ‌ترین فروشگاه اینترنتی ایران تبدیل شود. به محض ورود به سایت انلاین شاپ با دنیایی از کالا رو به رو می‌شوید! هر آنچه که نیاز دارید و به ذهن شما خطور می‌کند در اینجا پیدا خواهید کرد
+                    </p>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">کالای دیجیتال</h5>
+                    <br />
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#!" class="text-white">گوشی هوشمند</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-white">لپ تاپ</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-white">پردازنده</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-white">رم</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">مد و پوشاک</h5>
+                    <br />
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#!" class="text-white">تیشرت</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-white">کفش</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-white">ساعت</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-white">عینک</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="footer-copyright" class="text-center p-3">© 2020 Copyright:<a class="text-white" href="https://onlineshop.com/">OnlineShop.com</a></div>
+
+    </footer>
+
+    <script src="~/bootstrap-5.0.0/js/bootstrap.js"></script>
+    <script src="~/JavaScript.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,110 @@
+﻿@model Products
+@{
+    ViewData["Title"] = "صفحه ی اصلی";
+}
+@if (Model == null)
+{
+    <br />
+    <br />
+    <div class="container">
+        <form method="post" asp-action="Add" asp-controller="Product">
+         
+            <div class="form-group">
+                <label for="Name">نام</label>
+                <input type="text" class="form-control" id="Name" name="Name" />
+            </div>
+            <div class="form-group">
+                <label for="Category">دسته بندی</label>
+                <select class="form-control" name="Category" id="Category">
+                    <option value="کالای دیجیتال">کالای دیجیتال</option>
+                    <option value="زیبایی و سلامت">زیبایی و سلامت</option>
+                    <option value="خانه و آشپزخانه">خانه و آشپزخانه</option>
+                    <option value="مد و پوشاک">مد و پوشاک</option>
+                    <option value="خوردنی و اشامیدنی">خوردنی و اشامیدنی</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Description">توضیحات</label>
+                <input type="text" class="form-control" id="Description" name="Description" />
+            </div>
+            <div class="form-group">
+                <label for="Price">قیمت</label>
+                <input type="number" class="form-control" id="Price" name="Price" />
+            </div>
+
+            <button asp-action="Add" asp-controller="Product" type="submit" class="btn btn-primary mt-3" onclick="AddProduct()">دخیره</button>
+            <button asp-action="Index" asp-controller="Home" class="btn btn-dark mt-3 me-2">بازگشت</button>
+        </form>
+    </div>
+}
+else
+{
+    <br />
+    <br />
+    <div class="container">
+        <form method="post" asp-action="Edit" asp-controller="Product">
+            <div class="form-group">
+                <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+            </div>
+            <div class="form-group">
+                <label for="Name">نام</label>
+                <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name" />
+            </div>
+            <div class="form-group">
+                <label for="Category">دسته بندی</label>
+                <select class="form-control" name="Category" id="Category">
+                    @{switch (Model.Category)
+                        {
+                            case "مد و پوشاک":
+                                <option selected="selected" value="مد و پوشاک">مد و پوشاک</option>
+                                <option value="کالای دیجیتال">کالای دیجیتال</option>
+                                <option value="زیبایی و سلامت">زیبایی و سلامت</option>
+                                <option value="خانه و آشپزخانه">خانه و آشپزخانه</option>
+
+                                break;
+                            case "خانه و آشپزخانه":
+                                <option value="کالای دیجیتال">کالای دیجیتال</option>
+                                <option value="زیبایی و سلامت">زیبایی و سلامت</option>
+                                <option selected="selected" value="خانه و آشپزخانه">خانه و آشپزخانه</option>
+                                <option value="مد و پوشاک">مد و پوشاک</option>
+                                break;
+                            case "زیبایی و سلامت":
+                                <option value="کالای دیجیتال">کالای دیجیتال</option>
+                                <option selected="selected" value="زیبایی و سلامت">زیبایی و سلامت</option>
+                                <option value="خانه و آشپزخانه">خانه و آشپزخانه</option>
+                                <option value="مد و پوشاک">مد و پوشاک</option>
+                                break;
+                            case "کالای دیجیتال":
+                                <option selected="selected" value="کالای دیجیتال">کالای دیجیتال</option>
+                                <option value="زیبایی و سلامت">زیبایی و سلامت</option>
+                                <option value="خانه و آشپزخانه">خانه و آشپزخانه</option>
+                                <option value="مد و پوشاک">مد و پوشاک</option>
+                                break;
+
+                            default:
+                                break;
+                        }}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Description">توضیحات</label>
+                <input type="text" class="form-control" id="Description" name="Description" value="@Model.Description" />
+            </div>
+            <div class="form-group">
+                <label for="Price">قیمت</label>
+                <input type="number" class="form-control" id="Price" name="Price" value="@Model.Price" />
+            </div>
+
+            <button asp-action="Edit" asp-controller="Product" type="submit" class="btn btn-primary mt-3" onclick="AddProduct()">دخیره</button>
+            <button asp-action="Detail" asp-controller="Product" class="btn btn-dark mt-3 me-2">بازگشت</button>
+        </form>
+    </div>
+}
+<script>
+    function AddProduct() {
+    if (confirm('تغییرات ذخیره شود ؟')) {
+        window.location = '@Html.ActionLink("Product","Detail")';
+    }
+}
+
+</script>
