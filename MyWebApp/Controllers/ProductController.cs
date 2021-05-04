@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using MyWebApp.Dto;
 using MyWebApp.Models;
 using MyWebApp.Repository;
@@ -18,6 +19,45 @@ namespace MyWebApp.Controllers
         {
             _repository = repository;
         }
+        //[Route("[Controller]")]
+        public IActionResult Index(int? pageNumber,string search)
+        {
+            List<Products> model;
+            if (pageNumber==null)
+            {
+                pageNumber = 1;
+                ViewData["pageNumber"] = 1;
+            }
+            if (string.IsNullOrEmpty(search))
+            {
+                model = _repository.Paging(pageNumber);
+                ViewData["Count"] = _repository.GetAllProducts().Count;
+                var count = decimal.Parse(ViewData["Count"].ToString());
+                ViewData["pageCount"] = Math.Ceiling(count / 10);
+                ViewData["pageNumber"] = pageNumber;
+                var nextPage = pageNumber + 1;
+                var nextPageModel = _repository.Paging(nextPage);
+                ViewData["isLastPage"] = "false";
+                if (nextPageModel.Count == 0)
+                    ViewData["isLastPage"] = "true";
+            }
+            else
+            {
+                var allProducts = _repository.GetAllProducts().Where(i => i.Category == search || i.Name.Contains(search)).ToList();
+                ViewData["Count"] = allProducts.Count;
+                var count = decimal.Parse(ViewData["Count"].ToString());
+                ViewData["pageCount"] = Math.Ceiling(count / 10);
+                ViewData["pageNumber"] = pageNumber;
+                var nextPage = pageNumber + 1;
+                var nextPageModel = allProducts.Skip((int)(nextPage - 1) * 10).Take(10).ToList();
+                ViewData["isLastPage"] = "false";
+                if (nextPageModel.Count == 0)
+                    ViewData["isLastPage"] = "true";
+                ViewData["Search"] = search;
+                model = allProducts.Skip((int)(pageNumber - 1) * 10).Take(10).ToList();
+            }
+            return View(model);
+        }
         [Authorize]
         [HttpGet]
         public IActionResult AddOrEdit(Guid Id)
@@ -32,30 +72,6 @@ namespace MyWebApp.Controllers
                 return View(model);
             }
         }
-        [Route("[Controller]")]
-        public IActionResult Search(string Search)
-        {
-            if (string.IsNullOrEmpty(Search))
-            {
-                return View("AllProduct");
-            }
-            else
-            {
-                var result = _repository.GetAllProducts().Where(i => i.Name.Contains(Search) || i.Category == Search).ToList();
-                if (result.Count <= 0)
-                {
-                    return View("AllProduct");
-                }
-                else
-                {
-                    return View("AllProduct", result);
-                }
-            }
-        }
-        public IActionResult AllProduct()
-        {
-            return RedirectToAction("Index", "Home");
-        }
         [Authorize]
         [HttpPost]
         public IActionResult Add(Products model)
@@ -65,7 +81,7 @@ namespace MyWebApp.Controllers
                 model.Id = Guid.NewGuid();
             }
             _repository.AddProduct(model);
-            return RedirectToAction("Index", "Home");
+            return View("Index");
         }
         [Authorize]
         public IActionResult Edit(Products model)
@@ -82,7 +98,7 @@ namespace MyWebApp.Controllers
         public IActionResult Delete(Guid Id)
         {
             _repository.DeleteProduct(Id);
-            return RedirectToAction("Index", "Home");
+            return View("Index");
         }
 
     }

@@ -79,7 +79,9 @@ namespace MyWebApp
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapDefaultControllerRoute();
+                endpoints.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Product}/{action=Index}/{id?}");
             });
         }
 

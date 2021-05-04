@@ -14,7 +14,7 @@
 
     <nav class="navbar navbar-light bg-dark p-5" id="theader">
         <div class="container">
-            <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+            <a class="navbar-brand" asp-controller="Product" asp-action="Index">
                 <img src="~/Image/nav.logo.png" alt="" width="30" height="24">
                 <span class="text-light h4" id="text-header-top">فروشگاه اینترنتی انلاین شاپ</span>
             </a>
@@ -23,7 +23,7 @@
 
     <nav class="navbar navbar-dark navbar-expand-lg sticky-top bg-danger">
         <div class="container-fluid">
-            <a class="navbar-brand" asp-controller="Home" asp-action="Index">انلاین شاپ</a>
+            <a class="navbar-brand" asp-controller="Product" asp-action="Index">انلاین شاپ</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -33,10 +33,10 @@
             <div class="collapse navbar-collapse order-last">
                 <ul class="navbar-nav me-1 mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" asp-controller="Home" asp-action="Index">صفحه ی اصلی</a>
+                        <a class="nav-link active" aria-current="page" asp-controller="Product" asp-action="Index">صفحه ی اصلی</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="Product" asp-action="AllProduct">محصولات</a>
+                        <a class="nav-link" asp-controller="Product" asp-action="Index">محصولات</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
@@ -44,14 +44,14 @@
                             دسته بندی محصولات
                         </a>
                         <ul class="dropdown-menu text-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" asp-action="Search" asp-controller="Product" asp-route-Search="کالای دیجیتال">کالای دیجیتال</a></li>
-                            <li><a class="dropdown-item" asp-action="Search" asp-controller="Product" asp-route-Search="مد و پوشاک">مد و پوشاک</a></li>
-                            <li><a class="dropdown-item" asp-action="Search" asp-controller="Product" asp-route-Search="زیبایی و سلامت">زیبایی و سلامت</a></li>
-                            <li><a class="dropdown-item" asp-action="Search" asp-controller="Product" asp-route-Search="خانه و آشپزخانه">خانه و آشپزخانه</a></li>
+                            <li><a class="dropdown-item" asp-action="Index" asp-controller="Product" asp-route-Search="کالای دیجیتال">کالای دیجیتال</a></li>
+                            <li><a class="dropdown-item" asp-action="Index" asp-controller="Product" asp-route-Search="مد و پوشاک">مد و پوشاک</a></li>
+                            <li><a class="dropdown-item" asp-action="Index" asp-controller="Product" asp-route-Search="زیبایی و سلامت">زیبایی و سلامت</a></li>
+                            <li><a class="dropdown-item" asp-action="Index" asp-controller="Product" asp-route-Search="خانه و آشپزخانه">خانه و آشپزخانه</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" asp-action="Search" asp-controller="Product" asp-route-Search="خوردنی و اشامیدنی">خوردنی و اشامیدنی</a></li>
+                            <li><a class="dropdown-item" asp-action="Index" asp-controller="Product" asp-route-Search="خوردنی و اشامیدنی">خوردنی و اشامیدنی</a></li>
                         </ul>
                     </li>
 
@@ -84,7 +84,7 @@
                 </ul>
                 <form class="d-flex me-auto">
                     <input class="form-control ms-2 me-2 btn-outline-light" id="Search" name="Search" type="search" placeholder="جستجو در محصولات" aria-label="Search">
-                    <button class="btn btn-outline-light" asp-controller="Product" asp-action="Search" type="submit">جستجو</button>
+                    <button class="btn btn-outline-light" asp-controller="Product" asp-action="Index" type="submit">جستجو</button>
                 </form>
             </div>
 

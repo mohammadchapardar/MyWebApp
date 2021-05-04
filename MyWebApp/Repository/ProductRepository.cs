@@ -37,7 +37,7 @@ namespace MyWebApp.Repository
         }
         public List<Products> GetAllProducts()
         {
-            return _context.Products.OrderBy(i => i.Name).Take(10).ToList();
+            return _context.Products.OrderBy(i => i.Name).ToList();
         }
         public Products GetProductById(Guid Id)
         {
