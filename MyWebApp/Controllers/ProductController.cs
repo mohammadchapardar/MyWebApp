@@ -19,7 +19,6 @@ namespace MyWebApp.Controllers
         {
             _repository = repository;
         }
-        //[Route("[Controller]")]
         public IActionResult Index(int? pageNumber,string search)
         {
             List<Products> model;
@@ -30,13 +29,13 @@ namespace MyWebApp.Controllers
             }
             if (string.IsNullOrEmpty(search))
             {
-                model = _repository.Paging(pageNumber);
+                model = _repository.GetAllProducts().Skip((int)(pageNumber - 1) * 10).Take(10).ToList();
                 ViewData["Count"] = _repository.GetAllProducts().Count;
                 var count = decimal.Parse(ViewData["Count"].ToString());
                 ViewData["pageCount"] = Math.Ceiling(count / 10);
                 ViewData["pageNumber"] = pageNumber;
                 var nextPage = pageNumber + 1;
-                var nextPageModel = _repository.Paging(nextPage);
+                var nextPageModel = _repository.GetAllProducts().Skip((int)(nextPage - 1) * 10).Take(10).ToList();
                 ViewData["isLastPage"] = "false";
                 if (nextPageModel.Count == 0)
                     ViewData["isLastPage"] = "true";

@@ -31,8 +31,6 @@ namespace MyWebApp.Repository
             product.Price = model.Price;
             product.Description = model.Description;
             product.Category = model.Category;
-
-
             _context.SaveChanges();
         }
         public List<Products> GetAllProducts()
@@ -42,12 +40,6 @@ namespace MyWebApp.Repository
         public Products GetProductById(Guid Id)
         {
             return _context.Products.FirstOrDefault(i => i.Id == Id);
-        }
-        public List<Products> Paging(int? pageNumber)
-        {
-            var take = 10;
-            var skip = (int)(pageNumber - 1)*10;
-            return _context.Products.OrderBy(i => i.Name).Skip(skip).Take(take).ToList();
         }
     }
 }
